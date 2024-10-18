@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Prediction History</h1>
+    
+    <!-- Display predictions here -->
+    <ul>
+        {% for prediction in predictions %}
+            <li><strong>{{ prediction.prediction }}</strong> ({{ prediction.timestamp }})</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Hidden input for time zone -->
+    <input type="hidden" id="timezone-input" name="timezone" />
+
+    <a href="{{ url_for('app2.user_profile') }}">Back to Profile</a>
+
+    <script>
+        // Get user's time zone using JavaScript
+        var userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+        // Store the time zone in a hidden input field
+        document.getElementById("timezone-input").value = userTimeZone;
+    </script>
+</body>
+</html>

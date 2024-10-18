@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Model</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to bottom right, #ffffff, #e9ecef);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .model-selection {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        select, input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .disease-info {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            color: #333;
+        }
+        .suggestions {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .history-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .history-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .history-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select a Model</h1>
+
+    <div class="model-selection">
+        <form action="{{ url_for('app1.select_model') }}" method="POST">
+            <select name="model" required>
+                <option value="" disabled selected>Select a Model</option>
+                <option value="lung">Lung Model</option>
+                <option value="prain">Brain Model</option>
+                <option value="chest">Chest Model</option>
+                <option value="colon_lung">Colon/Lung Model</option>
+                <option value="bone_marrow">Bone Marrow Model</option>
+            </select>
+            <input type="submit" value="Select Model">
+        </form>
+
+        <div class="history-link">
+            <p><a href="/history">View History</a></p> <!-- Link to history page -->
+        </div>
+    </div>
+
+    <div class="disease-info">
+        <h2>Disease Information</h2>
+        <h3>Lung Model</h3>
+        <p>This model helps identify various types of lung cancers, including:</p>
+        <ul class="suggestions">
+            <li><strong>Adenocarcinoma:</strong> A type of lung cancer that begins in the cells that line the alveoli.</li>
+            <li><strong>Large Cell Carcinoma:</strong> A fast-growing type of lung cancer that can occur in any part of the lung.</li>
+            <li><strong>Squamous Cell Carcinoma:</strong> A type of lung cancer that originates in the squamous cells lining the lungs.</li>
+            <li><strong>Normal:</strong> No abnormalities detected.</li>
+        </ul>
+
+        <h3>Brain Model</h3>
+        <p>This model classifies brain conditions:</p>
+        <ul class="suggestions">
+            <li><strong>1:</strong> Indicates a specific type of abnormality detected.</li>
+            <li><strong>2:</strong> Represents another condition that requires further investigation.</li>
+            <li><strong>3:</strong> Denotes a severe condition that needs immediate attention.</li>
+        </ul>
+
+        <h3>Chest Model</h3>
+        <p>This model helps detect conditions related to the chest:</p>
+        <ul class="suggestions">
+            <li><strong>Normal:</strong> No issues detected in chest imaging.</li>
+            <li><strong>Pneumonia:</strong> An infection that inflames the air sacs in one or both lungs.</li>
+        </ul>
+
+        <h3>Colon/Lung Model</h3>
+        <p>This model identifies both colon and lung conditions:</p>
+        <ul class="suggestions">
+            <li><strong>Colon Adenocarcinoma:</strong> A type of cancer that forms in the mucus-producing glandular cells.</li>
+            <li><strong>Normal Colon Tissue:</strong> No abnormalities in colon tissue.</li>
+            <li><strong>Lung Adenocarcinoma:</strong> A type of lung cancer starting in glandular cells.</li>
+            <li><strong>Normal Lung Tissue:</strong> No abnormalities in lung tissue.</li>
+            <li><strong>Lung Squamous Cell Carcinoma:</strong> A form of lung cancer from squamous cells.</li>
+        </ul>
+
+        <h3>Bone Marrow Model</h3>
+        <p>This model helps detect bone marrow conditions:</p>
+        <ul class="suggestions">
+            <li><strong>Benign:</strong> Indicates non-cancerous cells in the bone marrow.</li>
+            <li><strong>Malignant Early Pre-B:</strong> Early-stage malignant cells in bone marrow.</li>
+            <li><strong>Malignant Pre-B:</strong> Intermediate stage malignant cells.</li>
+            <li><strong>Malignant Pro-B:</strong> Advanced-stage malignant cells requiring immediate attention.</li>
+        </ul>
+    </div>
+</body>
+</html>

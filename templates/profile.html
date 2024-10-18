@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>Welcome, User ID: {{ national_id }}</h1>
+    <h2>Select a Model for Prediction</h2>
+    
+    <form action="{{ url_for('select_model') }}" method="POST">
+        <select name="model">
+            <option value="lung">Lung Cancer Prediction</option>
+            <option value="prain">Brain Tumor Prediction</option>
+        </select>
+        <button type="submit">Select Model</button>
+    </form>
+</body>
+</html>

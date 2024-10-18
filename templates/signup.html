@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to bottom right, #ffffff, #e9ecef);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #photo-container video,
+        #photo-container img {
+            width: 100%;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .info {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign Up</h1>
+
+    <div class="info">
+        <p>Welcome to our intelligent medical web application that utilizes advanced <strong>face recognition</strong> technology for secure login and user management.</p>
+        <p>During sign-up, you will capture a photo for seamless authentication. Our platform employs various <strong>medical models</strong> to assist in diagnosing different conditions:</p>
+        <ul>
+            <li><strong>Lung Cancer Detection</strong>: Using imaging techniques to identify abnormalities.</li>
+            <li><strong>Brain Tumor Detection</strong>: Advanced models for analyzing brain scans.</li>
+            <li><strong>Chest X-Ray Analysis</strong>: Identifying diseases in the chest area.</li>
+            <li><strong>Skin Lesion Classification</strong>: Detecting and classifying skin conditions.</li>
+            <li><strong>Object Detection for Medical Imaging</strong>: Detecting critical features in various medical scans.</li>
+        </ul>
+        <p>After signing up, you can access these models for accurate medical assessments and personalized care.</p>
+    </div>
+
+    <form id="signup-form" method="post" action="/signupuser">
+        <input type="text" id="username" name="username" placeholder="Enter Username" required>
+        <input type="text" id="user_id" name="user_id" placeholder="Enter User ID" required>
+        <input type="text" id="national_id" name="national_id" placeholder="Enter National ID" required>
+        <input type="text" id="place_found" name="place_found" placeholder="Enter Place Found" required>
+        <button type="button" id="capture-btn">Take Photo</button>
+        <input type="hidden" id="image" name="image">
+        <input type="submit" value="Sign Up">
+    </form>
+    
+    <div id="photo-container"></div>
+    <div class="chat-link" style="text-align: center; margin: 20px;">
+        <p style="font-size: 18px; font-weight: bold;">Need to chat?</p>
+        <a href="http://localhost:5001/cancerchat/" target="_blank" style="background-color: #4CAF50; color: white; padding: 15px 20px; text-align: center; text-decoration: none; display: inline-block; border-radius: 5px; font-size: 16px;">Click here to chat</a>
+        <p style="font-size: 14px;">Get compassionate and informed answers to your cancer-related questions.</p>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#capture-btn').click(function() {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        var video = document.createElement('video');
+                        video.srcObject = stream;
+                        video.play();
+                        $('#photo-container').empty().append(video);
+
+                        // Capture photo on second click of the button
+                        $('#capture-btn').off('click').on('click', function() {
+                            var canvas = document.createElement('canvas');
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            var ctx = canvas.getContext('2d');
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                            var imageData = canvas.toDataURL('image/jpeg');
+                            $('#image').val(imageData);
+
+                            // Show captured photo
+                            $('#photo-container').empty().append(`<img src="${imageData}" alt="Captured Photo" />`);
+
+                            // Stop video stream after capturing
+                            stream.getTracks().forEach(track => track.stop());
+                        });
+                    })
+                    .catch(function(error) {
+                        console.error('Error accessing camera:', error);
+                        alert('Error accessing camera: ' + error.message);
+                    });
+            });
+
+            $('#signup-form').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/signupuser',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        alert(response.message);
+                        if (response.status === 200) {
+                            window.location.href = '/user_profile'; // Redirect to user profile after successful signup
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error('Sign-up error:', xhr);
+                        alert(xhr.responseJSON ? xhr.responseJSON.message : 'An error occurred during sign-up. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

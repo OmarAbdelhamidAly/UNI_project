@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .suggestion {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e9ecef;
+        }
+        .advice {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-left: 4px solid #007bff;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>{{ model.capitalize() }} Model Prediction</h1>
+    <p>Result: <strong>{{ result }}</strong></p>
+    
+    <div class="suggestion">
+        <h2>Suggestions and Advice:</h2>
+        
+        {% if model == 'lung' %}
+            {% if result == 'adenocarcinoma_left.lower.lobe_T2_N0_M0_Ib' %}
+                <p>You may have adenocarcinoma in the left lower lobe, a common type of lung cancer. It is characterized by abnormal growth of cells in the lung tissue, which can affect breathing and lung function. Early diagnosis is crucial for effective treatment.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Consult a pulmonologist for a thorough examination.</li>
+                        <li>Consider imaging tests like CT scans to evaluate the extent of the disease.</li>
+                        <li>Discuss treatment options, which may include surgery, chemotherapy, or radiation therapy.</li>
+                    </ul>
+                </div>
+            {% elif result == 'large.cell.carcinoma_left.hilum_T2_N2_M0_IIIa' %}
+                <p>This indicates a large cell carcinoma in the left hilum, known for its aggressive nature. Patients often present with symptoms such as coughing, chest pain, and weight loss. Prompt intervention is necessary to manage the condition effectively.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Schedule an appointment with an oncologist as soon as possible.</li>
+                        <li>Inquire about clinical trials that may provide access to innovative therapies.</li>
+                        <li>Prepare for a potential biopsy to confirm diagnosis and guide treatment.</li>
+                    </ul>
+                </div>
+            {% elif result == 'normal' %}
+                <p>Your results are normal, which is excellent news! Regular screenings are essential for maintaining lung health, especially if you have a history of smoking or exposure to pollutants.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Maintain a healthy lifestyle through regular exercise and a balanced diet.</li>
+                        <li>Avoid smoking and secondhand smoke exposure.</li>
+                        <li>Schedule annual check-ups to monitor lung health.</li>
+                    </ul>
+                </div>
+            {% elif result == 'squamous.cell.carcinoma_left.hilum_T1_N2_M0_IIIa' %}
+                <p>This suggests squamous cell carcinoma in the left hilum. This type of lung cancer can lead to severe respiratory issues if not addressed promptly. It’s important to take this diagnosis seriously and act swiftly.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Consult a healthcare provider to discuss your treatment options.</li>
+                        <li>Consider joining support groups for emotional and psychological assistance.</li>
+                        <li>Explore nutritional plans that can support your recovery.</li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% elif model == 'prain' %}
+            {% if result == '1' %}
+                <p>Diagnosis suggests mild impairment of brain function. Early intervention can help improve your condition and prevent progression.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Engage in cognitive exercises to stimulate brain activity.</li>
+                        <li>Maintain regular follow-ups with a neurologist.</li>
+                        <li>Consider dietary changes to improve cognitive function.</li>
+                    </ul>
+                </div>
+            {% elif result == '2' %}
+                <p>Diagnosis indicates moderate impairment. This requires a detailed evaluation and may involve treatment to manage symptoms and improve quality of life.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Consult with a neurologist for personalized management strategies.</li>
+                        <li>Participate in rehabilitation programs to aid recovery.</li>
+                        <li>Seek psychological support to cope with any emotional challenges.</li>
+                    </ul>
+                </div>
+            {% elif result == '3' %}
+                <p>Diagnosis suggests severe impairment, which can significantly affect daily functioning. Immediate medical attention is essential.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Seek urgent consultation with a neurologist or a specialist.</li>
+                        <li>Explore treatment options, including medications and therapy.</li>
+                        <li>Consider discussing long-term care options with healthcare providers.</li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% elif model == 'chest' %}
+            {% if result == 'normal' %}
+                <p>Your chest examination results are normal, indicating no immediate concerns. Maintaining good respiratory health is vital.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Continue with regular check-ups to monitor lung health.</li>
+                        <li>Adopt a healthy lifestyle, including regular physical activity.</li>
+                        <li>Stay informed about respiratory health practices.</li>
+                    </ul>
+                </div>
+            {% elif result == 'pneumonia' %}
+                <p>Diagnosis indicates pneumonia, an infection that inflames the air sacs in one or both lungs. Symptoms may include cough, fever, and difficulty breathing.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Seek medical attention for appropriate treatment, which may include antibiotics.</li>
+                        <li>Rest and stay hydrated to support recovery.</li>
+                        <li>Monitor symptoms closely and return to your healthcare provider if they worsen.</li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% elif model == 'colon' %}
+            {% if result == 'colon_aca' %}
+                <p>Diagnosis suggests colorectal adenocarcinoma. This type of cancer is found in the lining of the colon and can cause various symptoms.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Schedule a consultation with a gastroenterologist for further evaluation.</li>
+                        <li>Discuss potential treatments including surgery, chemotherapy, or radiation therapy.</li>
+                        <li>Consider genetic counseling if there’s a family history of colorectal cancer.</li>
+                    </ul>
+                </div>
+            {% elif result == 'colon_n' %}
+                <p>Diagnosis indicates no cancer found in the colon. This is positive news.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Continue regular screenings and maintain a healthy lifestyle.</li>
+                        <li>Eat a high-fiber diet to promote colon health.</li>
+                        <li>Stay physically active to reduce the risk of colorectal issues.</li>
+                    </ul>
+                </div>
+            {% elif result == 'lung_aca' %}
+                <p>Diagnosis indicates lung adenocarcinoma, a type of lung cancer that can develop from glandular tissues.</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Consult an oncologist for a comprehensive treatment plan.</li>
+                        <li>Consider clinical trials for the latest treatment options.</li>
+                        <li>Engage in supportive care for symptom management.</li>
+                    </ul>
+                </div>
+            {% elif result == 'lung_n' %}
+                <p>Diagnosis indicates no lung cancer detected, which is good news!</p>
+                <div class="advice">
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Maintain a healthy lifestyle to support lung health.</li>
+                        <li>Avoid smoking and exposure to pollutants.</li>
+                        <li>Schedule regular check-ups for monitoring.</li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    
+    <a href="/">Go back to home</a>
+</div>
+
+</body>
+</html>
